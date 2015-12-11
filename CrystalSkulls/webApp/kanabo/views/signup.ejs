@@ -1,0 +1,22 @@
+</<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title><%= title %></title>
+	<link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+	<h1><%= title %></h1>
+	<form method="post" action="/signup">
+		<div class="login_id">
+			<div class="ttl">ID</div>
+			<input type="text" name="id">
+		</div>
+		<div class="password">
+			<div class="ttl">パスワード</div>
+			<input type="password" name="password">
+		</div>
+		<input type="submit" value="登録" class="button signup">
+	</form>
+</body>
+</html>

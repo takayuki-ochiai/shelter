@@ -1,0 +1,54 @@
+</<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular-resource.min.js"></script>
+	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<script src="/javascripts/segmentMaster.js"></script>
+	<title><%= title %></title>
+	<link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+	<h1><%= title %></h1>
+	<div ng-app="segmentMaster" class="segment_master">
+		<div id="setting" ng-controller="settingCtrl">
+			<div class="element">
+				<div class="dispName">
+					<label>表示名</label>
+					<input type="text" settingKey="dispName"/>
+				</div>
+				<div class="key">
+					<label>キー</label>
+					<input type="text" settingKey="key"/>
+				</div>
+				<div class="choice">
+					<label>選択項目</label>
+					<input type="text" settingKey="choice"/>
+				</div>
+				<div class="searchMethod">
+					<label>検索方法</label>
+					<select settingKey="searchMethod" type="select">
+						<option value="">選択してください。</option>
+						<option value="1">イコール検索</option>
+						<option value="2">IN検索</option>
+						<option value="3">範囲検索</option>
+					</select>
+				</div>
+				<div class="repetition">
+					<label>繰返し</label>
+					<input type="checkbox" class="reception" settingKey="repetition" value="true" />
+				</div>
+				<div class="childElements">
+					<label>子セグメント</label>
+					<input type="checkbox" class="hasChild" value="true" onchange="changeHasChild(this)"/>
+					<div class="childElementsSetting" settingKey="childElements">
+					</div>
+				</div>
+				<input type="button" value="追加" class="button" alt="追加" onclick="addElement(this)"/>
+			</div>
+			<input type="button" value="確定" class="button" alt="確定" ng-click="register()"/>
+		</div>
+	</div>
+</body>
+</html>
