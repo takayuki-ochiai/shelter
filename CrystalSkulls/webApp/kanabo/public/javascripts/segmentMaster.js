@@ -10,6 +10,10 @@ app.factory('segmentMasterData', function($resource) {
 });
 
 app.controller('settingCtrl', function($scope, segmentMasterData) {
+	var elementView = $('.element')
+	// グローバルに保存する
+	template = elementView.clone(true);
+
 	$scope.register = function() {
 		var setting = [];
 		var elements = $('#setting').children('.element');
@@ -27,9 +31,6 @@ app.controller('settingCtrl', function($scope, segmentMasterData) {
 
 	segmentMasterData.get(function(segmentMasterData){
 		if (segmentMasterData.setting != undefined) {
-			var elementView = $('.element')
-			// グローバルに保存する
-			template = elementView.clone(true);
 			renderSetting(segmentMasterData.setting, elementView);
 		}
 	});
@@ -80,21 +81,14 @@ function renderElement(element, elementView) {
 			// 子要素なしの場合
 			elementView.children('.childElements').children('input:checkbox').prop("checked",false);
 		} else {
+			var child = elementView.children('.childElements').children('input:checkbox')
+			child.prop("checked",true);
+			disableInputs(child);
+
 			elementView.find('.childElementsSetting').append(template);
 			template = template.clone(true);
 			childElementView = elementView.find('.childElementsSetting').children('.element').filter(':last');
 			renderSetting(childElements, childElementView);
-			// for (childElementsIndex in childElements) {
-			// 	childElement = childElements[childElementsIndex];
-			// 	elementView.find('.childElementsSetting').append(template);
-			// 	template = template.clone(true);
-			// 	childElementView = elementView.find('.childElementsSetting').children('.element').filter(':last');
-			// 	// Siblingを指定しないといけない
-			// 	childElements = childElement.childElements
-			// 	if (childElements == undefined || childElements == null) {
-			// 		renderElement(childElement, childElementView);
-			// 	}
-			// }
 		}
 }
 
@@ -108,8 +102,7 @@ function changeHasChild(child) {
 		template = tmpClone;
 
 		// 自分の兄弟要素の選択方法はdisabledにする。
-		$(child).parent().siblings('.choice').children('[settingkey]').attr('disabled',true);
-		$(child).parent().siblings('.searchMethod').children('[settingkey]').attr('disabled',true);
+		disableInputs(child);
 	} else {
 		// チェックが消されたら削除する。
 		// REVIEW: 非表示にして、JSON変換時に値を取得しないにしたほうがいいかも
@@ -119,11 +112,12 @@ function changeHasChild(child) {
 		$(child).parent().siblings('.choice').children('[settingkey]').removeAttr('disabled');
 		$(child).parent().siblings('.searchMethod').children('[settingkey]').removeAttr('disabled');
 	}
+}
 
-
-
-
-
+function disableInputs(element) {
+	// 自分の兄弟要素の選択方法はdisabledにする。
+	$(element).parent().siblings('.choice').children('[settingkey]').attr('disabled',true);
+	$(element).parent().siblings('.searchMethod').children('[settingkey]').attr('disabled',true);
 }
 
 function parseElements(inputSegments) {
