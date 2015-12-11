@@ -8,7 +8,15 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/segment', function(req, res, next) {
-  res.render('userSegment', { title: 'ユーザー情報' });
+  var segmentMaster = mongo.getSegmentMaster();
+  segmentMaster.findOne({latest:true}, function(err, segmentMaster) {
+    if (segmentMaster == null) {
+      res.render('userSegment', { title: 'ユーザー情報', setting: {} });
+    } else {
+      res.render('userSegment', { title: 'ユーザー情報', setting: segmentMaster.setting });
+    }
+  });
+  // res.render('userSegment', { title: 'ユーザー情報', segmentMaster: segmentMaster });
 });
 
 /* ユーザーセグメント問い合わせ */

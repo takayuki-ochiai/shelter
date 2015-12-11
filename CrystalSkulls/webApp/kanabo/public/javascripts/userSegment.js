@@ -103,3 +103,6 @@ function perseElement(inputSegment) {
 				return value;
 			}
 }
+function debug() {
+	var segment = parseElements($('#user_segment').children('.element'));
+}

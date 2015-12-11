@@ -1,8 +1,8 @@
 var segments = require('./segments.js');
 
 module.exports = {
-	segment: function() {
-		return generateSegment(segments.getSegmentMaster());
+	segment: function(setting) {
+		return generateSegment(setting);
 	}
 };
 
@@ -15,7 +15,7 @@ function generateSegment(elements) {
 		if (element.repetition) {
 			html += `<div class="repetition">`
 		}
-		if (!element.hasChild) {
+		if (element.childElements == undefined) {
 			html += `<select>`
 			var options = '<option value="">選択してください。</option>';
 			for (choiceIndex in element.choice) {
@@ -26,7 +26,7 @@ function generateSegment(elements) {
 			html += options;
 			html += `</select>`;
 		} else {
-			html += generateSegment(element.childElements, element.key + '.');
+			html += generateSegment(element.childElements);
 		}
 		if (element.repetition) {
 			html += `</div>`

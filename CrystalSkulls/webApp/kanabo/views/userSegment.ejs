@@ -13,8 +13,8 @@
 	<h1><%= title %></h1>
 	<div ng-app="userSegment" class="user_segment">
 		<div id="user_segment" ng-controller="segmentCtrl">
-			<%- segment() %>
-			<input type="button" value="確定" class="button" alt="確定" ng-click="register()"/>
+			<%- segment(setting) %>
+			<input type="button" value="確定" class="button" alt="確定" ng-click="register()" onclick="debug()"/>
 		</div>
 	</div>
 </body>

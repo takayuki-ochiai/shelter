@@ -1,3 +1,5 @@
+var mongo = require('./mongodbAccess.js')
+
 /**
  * segments
  */
@@ -91,5 +93,12 @@ var segmentMaster = [
 	]
 
 exports.getSegmentMaster = function() {
-	return segmentMaster;
+	var segmentMaster = mongo.getSegmentMaster();
+	segmentMaster.findOne({}, function(err, segmentMaster) {
+		if (segmentMaster == null) {
+			return {};
+		} else {
+			return segmentMaster;
+		}
+	});
 };
