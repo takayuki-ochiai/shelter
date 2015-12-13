@@ -11,3 +11,8 @@ a {
   padding: 30px;
   border: black solid 1px;
 }
+
+.element .element {
+  padding: 30px;
+  border: black solid 1px;
+}
